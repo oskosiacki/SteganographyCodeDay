@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Steganography Code Day</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_encrypt">Encrypt</string>
+    <string name="title_decrypt">Decrypt</string>
 </resources>
