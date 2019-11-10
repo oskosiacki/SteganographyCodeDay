@@ -1,7 +1,6 @@
 package com.Botdogs4645.steganographycodeday;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -24,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private int intentRequestCode = 1;
     private TextView mTextMessage;
     private ImageView imageEncryptIcon;
+    private Bitmap bitmap;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -90,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             Uri imageUri = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
                 imageEncryptIcon.setImageBitmap(bitmap);
-
+                imageEncryptIcon.setBackground(null);
                 // You can manipulate this bitmap aka inject your message into it! Just save it as a class variable to keep track
 
             } catch (IOException e) {
@@ -101,3 +101,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
+        

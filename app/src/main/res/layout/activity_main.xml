@@ -36,28 +36,33 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="225dp"
+        android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginStart="106dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="106dp"
         android:adjustViewBounds="true"
         android:background="@drawable/no_image_selected"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Enter the secret message "
+        android:text="Enter secret message "
+        android:textAlignment="center"
         android:textColor="@android:color/background_light"
-        tools:layout_editor_absoluteX="98dp"
-        tools:layout_editor_absoluteY="342dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message" />
 
 </android.support.constraint.ConstraintLayout>
