@@ -108,8 +108,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("hello", "");
         if (resultCode == RESULT_OK) {
-           String imageURL = data.getDataString();
-           imageURL = getPath(data.getData());
+           String imageURL = getPath(data.getData());
            Log.d("hello", imageURL);
            imageEncryptIcon.setImageBitmap(decodeSampledBitmapFromResource(imageURL, 200, 200));
         }
