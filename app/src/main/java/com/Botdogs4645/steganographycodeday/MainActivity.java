@@ -18,6 +18,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.io.IOException;
 import java.lang.Math;
@@ -31,12 +34,14 @@ public class MainActivity extends AppCompatActivity {
     private Button encryptButton;
     private Button decryptButton;
     private EditText secretMessage;
+    private TextView decryptionText;
     private ImageView imageDecryptIcon;
 
 
     private String payload;
     private Bitmap bitmap;
     private Bitmap newbitmap;
+    public String finalDisplay = "N/A";
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -49,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
                     imageDecryptIcon.setVisibility(View.INVISIBLE);
                     encryptButton.setVisibility(View.VISIBLE);
                     decryptButton.setVisibility(View.INVISIBLE);
+                    secretMessage.setVisibility(View.VISIBLE);
+                    decryptionText.setVisibility(View.INVISIBLE);
 
                     return true;
                 case R.id.navigation_decrypt:
@@ -57,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
                     imageDecryptIcon.setVisibility(View.VISIBLE);
                     encryptButton.setVisibility(View.INVISIBLE);
                     decryptButton.setVisibility(View.VISIBLE);
+                    secretMessage.setVisibility(View.INVISIBLE);
+                    decryptionText.setVisibility(View.VISIBLE);
 
                     return true;
 
@@ -95,7 +104,9 @@ public class MainActivity extends AppCompatActivity {
         encryptButton = (Button) findViewById(R.id.encryptButton);
         decryptButton = (Button) findViewById(R.id.decryptButton);
         secretMessage = (EditText) findViewById(R.id.secretMessage);
+        decryptionText = (TextView) findViewById(R.id.decryptionText);
         newimage = (ImageView) findViewById(R.id.newimage);
+        decryptionText.setText(finalDisplay);
 
 
         imageEncryptIcon.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (IOException e) {
                 Log.e("MainActivity", e.getMessage());
+
             }
         }
     }
