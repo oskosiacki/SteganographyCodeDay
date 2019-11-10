@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private int intentRequestCode = 1;
     private TextView mTextMessage;
     private ImageView imageEncryptIcon;
+
+    private String payload;
     private Bitmap bitmap;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -101,5 +103,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
-        
+        //inputText.getText().toString()
+        //payload =
