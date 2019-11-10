@@ -18,8 +18,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import java.io.File;
+import android.os.Environment;
+import java.io.FileOutputStream;
 import org.w3c.dom.Text;
+import java.util.Date;
+import android.support.v4.content.FileProvider;
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.io.IOException;
@@ -92,6 +97,23 @@ public class MainActivity extends AppCompatActivity {
         return inSampleSize;
     }
 
+    String currentPhotoPath;
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "PNG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".png",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +142,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         encryptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,6 +190,29 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        newimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (newbitmap != null) {
+                    //saveImage(newbitmap, "encrypted");
+                   // MediaStore.Images.Media.insertImage(getContentResolver(), newbitmap, "encrypted" , "Encrypted Image");  // Saves the image.
+                    File photofile = null;
+                        try {
+                        photofile = createImageFile();
+                    } catch (IOException ex) {
+                        // Error occurred while creating the File
+
+                    }
+                    if (photofile != null) {
+                        Uri photoURI = FileProvider.getUriForFile(this,
+                                "com.example.android.fileprovider",
+                                photofile);
+                    }
+
+                }
+            }
+        });
+
     }
 
 

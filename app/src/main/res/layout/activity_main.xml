@@ -112,7 +112,7 @@
         app:layout_constraintTop_toBottomOf="@+id/newimage"
         tools:text="@string/title_decrypt" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/newimage"
         android:layout_width="100dp"
         android:layout_height="100dp"
