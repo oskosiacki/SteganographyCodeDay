@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
     private int intentRequestCode = 1;
     private TextView mTextMessage;
@@ -39,13 +41,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-    public String getPath(Uri uri)
-    {
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        cursor.moveToFirst();
-        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-        return cursor.getString(idx);
-    }
 
 
     public static int calculateInSampleSize(
@@ -65,22 +60,6 @@ public class MainActivity extends AppCompatActivity {
         return inSampleSize;
     }
 
-    public static Bitmap decodeSampledBitmapFromResource(String resId,
-                                                         int reqWidth, int reqHeight) {
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(resId, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(resId, options);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         imageEncryptIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Select an image from gallery",Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Select an image from gallery", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -103,14 +82,22 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("hello", "");
         if (resultCode == RESULT_OK) {
-           String imageURL = getPath(data.getData());
-           Log.d("hello", imageURL);
-           imageEncryptIcon.setImageBitmap(decodeSampledBitmapFromResource(imageURL, 200, 200));
+            Uri imageUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                imageEncryptIcon.setImageBitmap(bitmap);
+
+                // You can manipulate this bitmap aka inject your message into it! Just save it as a class variable to keep track
+
+            } catch (IOException e) {
+                Log.e("MainActivity", e.getMessage());
+            }
         }
     }
 }
