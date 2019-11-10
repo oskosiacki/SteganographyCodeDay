@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private int intentRequestCode = 1;
     private TextView mTextMessage;
     private ImageView imageEncryptIcon;
+    private Button encryptButton;
+    private EditText secretMessage;
 
     private String payload;
     private Bitmap bitmap;
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+   // protected Bitmap encryptFunction (String userInput, Bitmap userImage){}
 
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
@@ -69,11 +74,13 @@ public class MainActivity extends AppCompatActivity {
 
         mTextMessage = (TextView) findViewById(R.id.message);
         imageEncryptIcon = (ImageView) findViewById(R.id.imageView);
+        encryptButton = (Button) findViewById(R.id.encryptButton);
+        secretMessage = (EditText) findViewById(R.id.secretMessage);
 
         imageEncryptIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Select an image from gallery", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Select An Image From Gallery", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -82,6 +89,13 @@ public class MainActivity extends AppCompatActivity {
         });
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        encryptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Encoding, Please Wait A Moment...", Toast.LENGTH_SHORT).show();
+                secretMessage.getText().toString();
+            }
+        });
     }
 
 
@@ -103,5 +117,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-        //inputText.getText().toString()
-        //payload =
